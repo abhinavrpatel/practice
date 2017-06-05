@@ -1,4 +1,6 @@
 
+import java.util.Stack;
+
 /**
  * Solutions for a bunch of String and Array type coding problems
  */
@@ -49,6 +51,32 @@ public class StringAndArray {
     }
 
 
+
+
+
+
+    /**
+     * Given an input string, reverse the string word by word. A word is defined
+     * as a sequence of non-space characters. The input string does not contain
+     * leading or trailing spaces and the words are always separated by a single space.
+     *
+     * @param string
+     */
+    public static void reverseWords(Character[] string) {
+        int i = 0;
+        for (int j = 0; i < string.length; j++) {
+            if (string[j] == ' ') {
+                reverseArray(string, i, j - 1);
+                i = j + 1;
+            }
+            reverseArray(string, i, string.length - 1);
+            reverseArray(string, 0, string.length - 1);
+        }
+    }
+
+
+
+
     /**
      * Reverses a subarray (that begins at index start and ends at end) of the
      * given array
@@ -66,5 +94,35 @@ public class StringAndArray {
             start++;
             end++;
         }
+    }
+
+
+
+
+
+    /**
+     * Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+     * Valid operators are +, -, *, /. Each operand may be an integer or another
+     * expression.
+     */
+    public static int evalReversePolish(String[] operation) {
+        String operators = "+-/*";
+        Stack<Integer> stack = new Stack<>();
+        for (String o : operation)
+            if (operators.contains(o))
+                stack.push(Integer.valueOf(o));
+            else {
+                int i = stack.pop();
+                int j = stack.pop();
+                if (o.equals("+"))
+                    stack.push(i + j);
+                else if (o.equals("-"))
+                    stack.push(i - j);
+                else if (o.equals("/"))
+                    stack.push(i / j);
+                else
+                    stack.push(i * j);
+            }
+        return stack.pop();
     }
 }
