@@ -1,4 +1,6 @@
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -55,6 +57,7 @@ public class StringAndArray {
 
 
 
+
     /**
      * Given an input string, reverse the string word by word. A word is defined
      * as a sequence of non-space characters. The input string does not contain
@@ -77,6 +80,9 @@ public class StringAndArray {
 
 
 
+
+
+
     /**
      * Reverses a subarray (that begins at index start and ends at end) of the
      * given array
@@ -95,6 +101,8 @@ public class StringAndArray {
             end++;
         }
     }
+
+
 
 
 
@@ -124,5 +132,33 @@ public class StringAndArray {
                     stack.push(i * j);
             }
         return stack.pop();
+    }
+
+
+
+
+
+
+
+    /**
+     * Given two strings s and t, determine if they are isomorphic. Two strings
+     * are isomorphic if the characters in s can be replaced to get t. For example,
+     * "hello" and "finna" are isomorphic, "yellow" and "submarine" are not.
+     */
+    public static boolean areIsomorphic(String str1, String str2) {
+        if (str1.length() != str2.length())
+            return false;
+
+        char[] a = str1.toCharArray();
+        char[] b = str2.toCharArray();
+
+        Map<Character, Character> map = new HashMap<>();
+        for (int i = 0; i < a.length; i++) {
+            if (map.containsKey(a[i]) && !map.get(a[i]).equals(b[i]))
+                return false;
+            else
+                map.put(a[i], b[i]);
+        }
+        return true;
     }
 }
