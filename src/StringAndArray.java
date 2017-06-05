@@ -161,4 +161,50 @@ public class StringAndArray {
         }
         return true;
     }
+
+
+
+
+
+
+
+    /**
+     * Find the kth largest element in an unsorted array. Note that it is the kth
+     * largest element in the sorted order, not the kth distinct element.
+     */
+    public static <E extends Comparable<E>> E findKthLargest(E[] data, int k) {
+        // use quick select
+        return getKth(data, data.length - k + 1, 0, data.length - 1);
+    }
+
+    public static <E extends Comparable<E>> E getKth(E[] data, int k, int start, int end) {
+        E pivot = data[start];
+        int left = start;
+        int right = end;
+
+        while (true) {
+            while (data[left].compareTo(pivot) < 0 && left < right)
+                left++;
+
+            while (data[right].compareTo(pivot) > 0 && left < right)
+                right--;
+
+            if (left == right)
+                break;
+
+            E temp = data[left];
+            data[left] = data[right];
+            data[right] = temp;
+        }
+
+        E temp = data[left];
+        data[left] = data[end];
+        data[end] = temp;
+
+        if (k == left + 1)
+            return pivot;
+        if (k < left + 1)
+            return getKth(data, k, start, left - 1);
+        return getKth(data, k, left + 1, end);
+    }
 }
