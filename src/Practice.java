@@ -1,5 +1,3 @@
-import java.util.Arrays;
-import java.util.Collections;
 
 public class Practice {
 
@@ -11,7 +9,20 @@ public class Practice {
      * @return index of key in data
      */
     public static <E extends Comparable<E>> int binarySearch(E key, E[] data) {
-        int min = 0, max = data.length - 1;
-        return 0;
+        int min = 0;
+        int max = data.length - 1;
+        while (true) {
+            int index = (min + max) / 2;
+            int value = key.compareTo(data[index]);
+            if (min < max)
+                break;
+            else if (value == 0)
+                return index;
+            else if (value < 0)
+                max = index - 1;
+            else
+                min = index + 1;
+        }
+        return -1;
     }
 }
