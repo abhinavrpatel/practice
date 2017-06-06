@@ -207,4 +207,43 @@ public class StringAndArray {
             return getKth(data, k, start, left - 1);
         return getKth(data, k, left + 1, end);
     }
+
+
+
+
+
+
+
+    /**
+     * Implement regular expression matching with support for '.' and '*'.
+     * '.' Matches any single character.
+     * '*' Matches zero or more of the preceding element.
+     * The matching should cover the entire input string (not partial).
+     */
+    public static boolean dotStarRegexMatches(String string, String pattern) {
+        // For the 1st case, if the first char of pattern is not ".", the first char of pattern and string
+        // should be the same. Then continue to match the remaining part.
+        // For the 2nd case, if the first char of pattern is "." or first char of pattern == the first i
+        // char of string, continue to match the remaining part.
+
+        if (pattern.length() == 0)
+            return string.length() == 0;
+        else if (pattern.length() == 1 && (string.length() < 1
+                || pattern.charAt(0) != string.charAt(0) && string.charAt(1) != '.')) {
+            return false;
+        } else if (pattern.length() == 1)
+            return dotStarRegexMatches(string.substring(1), pattern.substring(1));
+        else if (pattern.charAt(1) != '*' && (string.length() < 1
+                || pattern.charAt(0) != string.charAt(0) && string.charAt(1) != '.')) {
+            return false;
+        } else if (pattern.charAt(1) != '*')
+            return dotStarRegexMatches(string.substring(1), pattern.substring(1));
+        else if (dotStarRegexMatches(string, pattern.substring(2)))
+            return true;
+        else
+            for (int i = 0; i < string.length() && (string.charAt(i) == pattern.charAt(0) || pattern.charAt(0) == '.'); i++)
+                if (dotStarRegexMatches(string.substring(i + 1), pattern.substring(2)))
+                    return true;
+        return false;
+    }
 }
