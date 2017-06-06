@@ -1,7 +1,4 @@
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Solutions for a bunch of String and Array type coding problems
@@ -245,5 +242,26 @@ public class StringAndArray {
                 if (dotStarRegexMatches(string.substring(i + 1), pattern.substring(2)))
                     return true;
         return false;
+    }
+
+
+
+
+
+
+    private static class Interval {
+        int start;
+        int end;
+    }
+
+    public static List<Interval> mergeIntervals(List<Interval> intervals) {
+        intervals.sort((o1, o2) -> o1.start == o2.start ? o1.end - o2.start : o1.start - o2.start);
+        List<Interval> merged = new ArrayList<>();
+        Interval previous = intervals.get(0);
+        for (int i = 1; i < intervals.size(); i++) {
+            Interval current = intervals.get(i);
+            // TODO finish
+        }
+        return merged;
     }
 }
