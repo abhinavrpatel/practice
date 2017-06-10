@@ -382,8 +382,24 @@ public class StringAndArray {
         if (numbers == null || numbers.length < 3)
             throw new IllegalArgumentException();
         int closest = 0;
+        int min = Integer.MAX_VALUE;
         Arrays.sort(numbers);
-        // TODO implement this
+
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = i + 1, k = numbers.length - 1; j < k; ) {
+                int sum = numbers[i] + numbers[j] + numbers[k];
+                if (sum == target)
+                    return sum;
+                else if (Math.abs(sum - target) < min) {
+                    closest = sum;
+                    min = Math.abs(sum - target);
+                }
+                if (sum < target)
+                    j++;
+                else
+                    k--;
+            }
+        }
         return closest;
     }
 
