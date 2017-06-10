@@ -260,7 +260,14 @@ public class StringAndArray {
         Interval previous = intervals.get(0);
         for (int i = 1; i < intervals.size(); i++) {
             Interval current = intervals.get(i);
-            // TODO finish
+            if (previous.end >= current.start && previous.end < current.end) {
+                previous.end = current.end;
+            } else if (previous.end >= current.end) {
+                continue;
+            } else {
+                merged.add(previous);
+                previous = current;
+            }
         }
         return merged;
     }
