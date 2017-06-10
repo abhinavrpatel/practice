@@ -405,6 +405,7 @@ public class StringAndArray {
 
 
 
+
     /**
      * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the
      * input string is valid. The brackets must close in the correct order, "()" and "()[]{}" are all
@@ -429,5 +430,29 @@ public class StringAndArray {
         }
 
         return stack.isEmpty();
+    }
+
+
+
+
+    /**
+     * Given two sorted integer arrays A and B, merge B into A as one sorted array. You may assume
+     * that A has enough space to hold additional elements from B. The number of elements initialized
+     * in A and B are m and n respectively.
+     */
+    public static void merge(int[] a, int m, int[] b, int n) {
+        while (m > 0 && n > 0)
+            if (a[m - 1] > b[n - 1]) {
+                a[m + n - 1] = a[m - 1];
+                m--;
+            } else {
+                a[m + n - 1] = b[n - 1];
+                n--;
+            }
+
+        while (n > 0) {
+            a[m + n - 1] = b[n - 1];
+            n--;
+        }
     }
 }
