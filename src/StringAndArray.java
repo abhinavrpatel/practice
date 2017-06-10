@@ -222,6 +222,8 @@ public class StringAndArray {
         // should be the same. Then continue to match the remaining part.
         // For the 2nd case, if the first char of pattern is "." or first char of pattern == the first i
         // char of string, continue to match the remaining part.
+        if (string == null || pattern == null)
+            throw new IllegalArgumentException();
 
         if (pattern.length() == 0)
             return string.length() == 0;
@@ -255,6 +257,9 @@ public class StringAndArray {
     }
 
     public static List<Interval> mergeIntervals(List<Interval> intervals) {
+        if (intervals == null)
+            throw new IllegalArgumentException();
+
         intervals.sort((o1, o2) -> o1.start == o2.start ? o1.end - o2.start : o1.start - o2.start);
         List<Interval> merged = new ArrayList<>();
         Interval previous = intervals.get(0);
@@ -278,6 +283,9 @@ public class StringAndArray {
 
 
     public static int[] twoSum(int[] numbers, int target) {
+        if (numbers == null || numbers.length < 2)
+            throw new IllegalArgumentException();
+
         Map<Integer, Integer> indexMap = new HashMap<>();
         for (int i = 0; i < numbers.length; i++) {
             if (indexMap.containsKey(target - numbers[i])) {
@@ -290,18 +298,88 @@ public class StringAndArray {
     }
 
 
+
+
+
+
+
     /**
-     * Find all unique triplets in the array which gives the sum of zero.
+     * Find all unique triplets in the array which gives the sum of target.
      */
-    public static List<List<Integer>> threeSum(int[] numbers) {
+    public static List<int[]> threeSum(int[] numbers, int target) {
+        if (numbers == null || numbers.length < 3)
+            throw new IllegalArgumentException();
+
         Arrays.sort(numbers);
-        for (int i = 0; i < numbers.length; i++) {
-            for (int j = i + 1; j < numbers.length; j++) {
-                // TODO finish
+        List<int[]> triplets = new LinkedList<>();
+        for (int i = 0; i < numbers.length - 2; i++)
+            for (int j = i + 1, k = numbers.length - 1; j < k; ) {
+                if (numbers[i] + numbers[j] + numbers[k] == target) {
+                    triplets.add(new int[] { numbers[i], numbers[j], numbers[k] });
+                    // in case there are duplicates in the array
+                    while (numbers[j] == numbers[j + 1] && j < k)
+                        j++;
+                    while (numbers[k] == numbers[k - 1] && j < k)
+                        k--;
+                    j++;
+                    k--;
+                } else if (numbers[i] + numbers[j] + numbers[k] < target)
+                    j++;
+                else
+                    k--;
+            }
+
+        return triplets;
+    }
+
+
+
+
+
+
+    /**
+     * Find all unique quadruplets in the array which gives the sum of target.
+     */
+    public static List<int[]> fourSum(int[] numbers, int target) {
+        if (numbers == null || numbers.length < 4)
+            throw new IllegalArgumentException();
+
+        Arrays.sort(numbers);
+        List<int[]> set = new LinkedList<>();
+        for (int a = 0; a < numbers.length - 3; a++) {
+            if (a > 0 && numbers[a] == numbers[a - 1])
+                a++;
+            for (int b = a + 1; b < numbers.length - 2; b++) {
+                if (b > a + 1 && numbers[b] == numbers[b - 1])
+                    b++;
+                for (int i = b + 1, j = numbers.length - 1; i < j; ) {
+                    if (numbers[a] + numbers[b] + numbers[i] + numbers[j] == target) {
+                        set.add(new int[] { numbers[a], numbers[b], numbers[i], numbers[j] });
+                        while (numbers[j] == numbers[j - 1] && j > i)
+                            j--;
+                        while (numbers[i] == numbers[i -+1] && j > i)
+                            i++;
+                        i++;
+                        j--;
+                    } else if (numbers[a] + numbers[b] + numbers[i] + numbers[j] < target)
+                        i++;
+                    else
+                        j--;
+                }
             }
         }
-        return null;
+
+        return set;
     }
+
+
+
+
+
+
+
+
+
 
 
     /**
