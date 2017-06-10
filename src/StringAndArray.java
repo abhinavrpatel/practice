@@ -373,12 +373,19 @@ public class StringAndArray {
     }
 
 
-
-
-
-
-
-
+    /**
+     * Given an array S of n integers, find three integers in S such that the sum is closest to a
+     * given number, target. Return the sum of the three integers. You may assume that each input
+     * would have exactly one solution.
+     */
+    public int threeSumClosest(int[] numbers, int target) {
+        if (numbers == null || numbers.length < 3)
+            throw new IllegalArgumentException();
+        int closest = 0;
+        Arrays.sort(numbers);
+        // TODO implement this
+        return closest;
+    }
 
 
 
