@@ -271,4 +271,62 @@ public class StringAndArray {
         }
         return merged;
     }
+
+
+
+
+
+
+    public static int[] twoSum(int[] numbers, int target) {
+        Map<Integer, Integer> indexMap = new HashMap<>();
+        for (int i = 0; i < numbers.length; i++) {
+            if (indexMap.containsKey(target - numbers[i])) {
+                return new int[] { indexMap.get(target - numbers[i]), i };
+            } else {
+                indexMap.put(target - numbers[i], i);
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Find all unique triplets in the array which gives the sum of zero.
+     */
+    public static List<List<Integer>> threeSum(int[] numbers) {
+        Arrays.sort(numbers);
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = i + 1; j < numbers.length; j++) {
+                // TODO finish
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the
+     * input string is valid. The brackets must close in the correct order, "()" and "()[]{}" are all
+     * valid but "(]" and "([)]" are not.
+     */
+    public static boolean validBrackets(String input) {
+        char[] chars = input.toCharArray();
+        Map<Character, Character> brackets = new HashMap<>(3);
+        brackets.put('{', '}');
+        brackets.put('[', ']');
+        brackets.put('(', ')');
+
+        Stack<Character> stack = new Stack<>();
+        for (char c : chars) {
+            if (brackets.keySet().contains(c)) {
+                stack.push(c);
+            } else if (brackets.get(stack.peek()).equals(c)) {
+                stack.pop();
+            } else {
+                return false;
+            }
+        }
+
+        return stack.isEmpty();
+    }
 }
