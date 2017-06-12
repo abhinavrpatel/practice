@@ -438,25 +438,6 @@ public class StringAndArray {
 
 
 
-    /**
-     * Given a string containing just the characters '(' and ')', find the length of the longest
-     * valid (well-formed) parentheses substring. For "(()", the longest valid parentheses
-     * substring is "()", which has length = 2. Another example is ")()())", where the longest
-     * valid parentheses substring is "()()", which has length = 4.
-     */
-    public static int longestValidParenthesis(String input) {
-        Stack<int[]> stack = new Stack<>();
-        int length = 0;
-        //for ()
-        return 0;
-    }
-
-
-
-
-
-
-
 
 
 
@@ -511,5 +492,53 @@ public class StringAndArray {
                 left++;
         }
         return found ? length : 0;
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Given a string containing just the characters '(' and ')', find the length of the longest
+     * valid (well-formed) parentheses substring. For "(()", the longest valid parentheses
+     * substring is "()", which has length = 2. Another example is ")()())", where the longest
+     * valid parentheses substring is "()()", which has length = 4.
+     */
+    public static int longestValidParenthesis(String input) {
+        Stack<int[]> stack = new Stack<>();
+        int length = 0;
+        //for () TODO
+        return 0;
+    }
+
+
+
+
+
+
+
+    /**
+     * Given a sorted array and a target value, return the index if the target is found. If not,
+     * return the index where it would be if it were inserted in order. You may assume no
+     * duplicates in the array.
+     */
+    public static int findInsertPosition(int[] array, int target) {
+        if (array == null)
+            throw new IllegalArgumentException();
+        if (array[array.length - 1] <= target)
+            return array.length;
+        int left = 0;
+        int right = array.length - 1;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (array[mid] < target)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        return right;
     }
 }
