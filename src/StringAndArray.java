@@ -240,7 +240,8 @@ public class StringAndArray {
         else if (dotStarRegexMatches(string, pattern.substring(2)))
             return true;
         else
-            for (int i = 0; i < string.length() && (string.charAt(i) == pattern.charAt(0) || pattern.charAt(0) == '.'); i++)
+            for (int i = 0; i < string.length() && (string.charAt(i) == pattern.charAt(0)
+                    || pattern.charAt(0) == '.'); i++)
                 if (dotStarRegexMatches(string.substring(i + 1), pattern.substring(2)))
                     return true;
         return false;
@@ -435,6 +436,30 @@ public class StringAndArray {
 
 
 
+
+
+    /**
+     * Given a string containing just the characters '(' and ')', find the length of the longest
+     * valid (well-formed) parentheses substring. For "(()", the longest valid parentheses
+     * substring is "()", which has length = 2. Another example is ")()())", where the longest
+     * valid parentheses substring is "()()", which has length = 4.
+     */
+    public static int longestValidParenthesis(String input) {
+        Stack<int[]> stack = new Stack<>();
+        int length = 0;
+        //for ()
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
     /**
      * Given two sorted integer arrays A and B, merge B into A as one sorted array. You may assume
      * that A has enough space to hold additional elements from B. The number of elements initialized
@@ -454,5 +479,37 @@ public class StringAndArray {
             a[m + n - 1] = b[n - 1];
             n--;
         }
+    }
+
+
+
+
+
+
+
+    /**
+     * Given an array of n positive integers and a positive integer s, find the minimal
+     * length of a subarray (consecutive entries) of which the sum ≥ s. If there isn't one,
+     * return 0 instead. For example, given the array [2,3,1,2,4,3] and s = 7, the subarray
+     * [4,3] has the minimal length of 2 under the problem constraint.
+     */
+    public static int minSubArrayLength(int[] numbers, int target) {
+        if (numbers == null || numbers.length == 0)
+            throw new IllegalArgumentException();
+        int sum = 0;
+        int length = Integer.MAX_VALUE;
+        int left = 0;
+        int right = 0;
+        boolean found = false;
+        while (right < numbers.length) {
+            if (sum < target)
+                right++;
+            else if (sum == target) {
+                found = true;
+                length = length < right - left ? length : right - left;
+            } else
+                left++;
+        }
+        return found ? length : 0;
     }
 }
