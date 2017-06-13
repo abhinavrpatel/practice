@@ -589,6 +589,10 @@ public class StringAndArray {
     }
 
 
+
+
+
+
     /**
      * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring
      * cases. For example, "Red rum, sir, is murder" is a palindrome, while "Abhinav is awesome" is not. For
@@ -599,7 +603,7 @@ public class StringAndArray {
         // with the same runtime but slightly more space consumption (still clever though)
         char[] chars = str.toCharArray();
         Stack<Character> stack = new Stack<>();
-        int i = 0;
+        int i;
         for (i = 0; i < chars.length / 2; i++)
             stack.push(chars[i]);
         if (chars.length % 2 == 1)
@@ -613,4 +617,46 @@ public class StringAndArray {
         return true;
     }
 
+
+
+
+
+
+
+
+
+    /**
+     * Given two binary strings, return their sum (also a binary string).
+     */
+    public static String addBinary(String a, String b) {
+        if (a == null || a.length() == 0)
+            return b;
+        if (b == null | b.length() == 0)
+            return a;
+
+        int carry = 0;
+        int iterA = a.length() - 1, iterB = b.length() - 1;
+        StringBuilder builder = new StringBuilder();
+
+        while (iterA >= 0 || iterB >= 0) {
+            int sum = 0;
+            if (iterA >= 0 && a.charAt(iterA) == '1')
+                sum++;
+            if (iterB >= 0 && b.charAt(iterB) == '1')
+                sum++;
+
+            sum += carry;
+
+            if (sum > 1)
+                carry = 1;
+            else
+                carry = 0;
+            builder.insert(0, (char) ((sum % 2) + '0'));
+            iterA--;
+            iterB--;
+        }
+        if (carry == 1)
+            builder.insert(0, '1');
+        return builder.toString();
+    }
 }
