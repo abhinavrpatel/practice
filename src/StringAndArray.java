@@ -587,4 +587,30 @@ public class StringAndArray {
         }
         return max;
     }
+
+
+    /**
+     * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring
+     * cases. For example, "Red rum, sir, is murder" is a palindrome, while "Abhinav is awesome" is not. For
+     * this problem, empty string is considered a palindrome
+     */
+    public static boolean isPalindrone(String str) {
+        // one straightforward solution is simply have two pointers walk towards eachother. this is a different solution
+        // with the same runtime but slightly more space consumption (still clever though)
+        char[] chars = str.toCharArray();
+        Stack<Character> stack = new Stack<>();
+        int i = 0;
+        for (i = 0; i < chars.length / 2; i++)
+            stack.push(chars[i]);
+        if (chars.length % 2 == 1)
+            i++;
+
+        while (!stack.isEmpty()) {
+            if (stack.pop() != chars[i])
+                return false;
+            i++;
+        }
+        return true;
+    }
+
 }
