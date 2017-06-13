@@ -556,12 +556,35 @@ public class StringAndArray {
     }
 
 
+
+
+
+
     /**
      * Given an unsorted array of integers, find the length of the longest consecutive elements
      * sequence. For example, given [100, 4, 200, 1, 3, 2], the longest consecutive elements sequence
      * should be [1, 2, 3, 4]. Its length is 4. Your algorithm should run in O(n) complexity.
      */
     public static int longestConsecutive(int[] array) {
-        return 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i : array) {
+            int above = 0;
+            if (map.containsKey(i + 1)) {
+                above = map.get(i + 1);
+            }
+            int below = 0;
+            if (map.containsKey(i - 1)) {
+                below = map.get(i - 1);
+            }
+            map.put(i, Math.max(above, below) + 1);
+        }
+
+        int max = 0;
+        for (int i : array) {
+            int current = map.get(i);
+            if (current > max)
+                max = current;
+        }
+        return max;
     }
 }
