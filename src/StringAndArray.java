@@ -508,10 +508,23 @@ public class StringAndArray {
      * valid parentheses substring is "()()", which has length = 4.
      */
     public static int longestValidParenthesis(String input) {
-        Stack<int[]> stack = new Stack<>();
+        Stack<Character> stack = new Stack<>();
         int length = 0;
-        //for () TODO
-        return 0;
+        int current = 0;
+        char[] letters = input.toCharArray();
+        for (char c : letters) {
+            if (c == '(')
+                stack.push(c);
+            else
+                if (stack.peek() == '(') {
+                    stack.pop();
+                    current += 2;
+                    length = Math.max(current, length);
+                } else {
+                    current = 0;
+                }
+        }
+        return length;
     }
 
 
@@ -540,5 +553,15 @@ public class StringAndArray {
                 right = mid;
         }
         return right;
+    }
+
+
+    /**
+     * Given an unsorted array of integers, find the length of the longest consecutive elements
+     * sequence. For example, given [100, 4, 200, 1, 3, 2], the longest consecutive elements sequence
+     * should be [1, 2, 3, 4]. Its length is 4. Your algorithm should run in O(n) complexity.
+     */
+    public static int longestConsecutive(int[] array) {
+        return 0;
     }
 }
