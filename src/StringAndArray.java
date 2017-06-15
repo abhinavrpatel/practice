@@ -599,8 +599,9 @@ public class StringAndArray {
      * this problem, empty string is considered a palindrome
      */
     public static boolean isPalindrone(String str) {
-        // one straightforward solution is simply have two pointers walk towards eachother. this is a different solution
-        // with the same runtime but slightly more space consumption (still clever though)
+        // one straightforward solution is simply have two pointers walk towards eachother.
+        // this is a different solution with the same runtime but slightly more space
+        // consumption (still clever though)
         char[] chars = str.toCharArray();
         Stack<Character> stack = new Stack<>();
         int i;
@@ -658,5 +659,30 @@ public class StringAndArray {
         if (carry == 1)
             builder.insert(0, '1');
         return builder.toString();
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Given an array of integers and an integer k, return true if and only
+     * if there are two distinct indices i and j in the array such that
+     * nums[i] = nums[j] and the difference between i and j is at most k.
+     */
+    public static boolean containsDuplicateNearby(int[] arr, int diff) {
+        HashMap<Integer, Integer> seen = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (!seen.containsKey(arr[i]))
+                seen.put(arr[i], i);
+            else if (i - seen.get(arr[i]) <= diff)
+                return true;
+            else
+                seen.put(arr[i], i);
+        }
+        return false;
     }
 }
