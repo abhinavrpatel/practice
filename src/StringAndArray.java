@@ -707,4 +707,31 @@ public class StringAndArray {
             arr[insert++] = 0;
         }
     }
+
+
+
+
+
+
+
+    /**
+     * Given a string, find the length of the longest substring without repeating characters.
+     * For example, the longest substring without repeating letters for "abcabcbb" is "abc",
+     * which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+     */
+    public static int longestSubstringNoRepeatsLength(String string) {
+        HashSet<Character> seen = new HashSet<>();
+        int longest = 0;
+        for (int i = 0; i < string.length(); i++)
+            for (int j = i; j < string.length(); j++)
+                if (!seen.contains(string.charAt(j)))
+                    seen.add(string.charAt(j));
+                else {
+                    if (seen.size() > longest)
+                        longest = seen.size();
+                    seen = new HashSet<>();
+                    break;
+                }
+        return longest;
+    }
 }
