@@ -734,4 +734,36 @@ public class StringAndArray {
                 }
         return longest;
     }
+
+
+
+
+
+
+
+    /**
+     * Given a string, find the longest substring that contains only two unique characters.
+     * For example, given "abcbbbbcccbdddadacb", the longest substring that contains 2 unique
+     * character is "bcbbbbcccb".
+     */
+    public static int longestSubstringTwoUniqueCharactersLength(String string) {
+        // for generic k-unique characters, dont store in explicit char and instead
+        // store in a HashSet, and see if that HashSet contains the target chars
+        int longest = 0;
+        int i = 0;
+        while (i < string.length() - 1) {
+            char a = string.charAt(i);
+            char b = string.charAt(i + 1);
+            for (int j = i; j < string.length(); j++) {
+                char c = string.charAt(j);
+                if (c == a || c == b) {
+                    continue;
+                } else {
+                    longest = Math.max(longest, j - i);
+                    i = j;
+                }
+            }
+        }
+        return longest;
+    }
 }
