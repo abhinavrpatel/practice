@@ -685,4 +685,26 @@ public class StringAndArray {
         }
         return false;
     }
+
+
+
+
+
+
+    /**
+     * Given an array nums, write a function to move all 0's to the end of it while
+     * maintaining the relative order of the non-zero elements.
+     */
+    public static void moveZeroes(int[] arr) {
+        int insert = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                arr[insert] = arr[i];
+                insert++;
+            }
+        }
+        while (insert < arr.length) {
+            arr[insert++] = 0;
+        }
+    }
 }
