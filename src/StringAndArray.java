@@ -747,21 +747,24 @@ public class StringAndArray {
      * character is "bcbbbbcccb".
      */
     public static int longestSubstringTwoUniqueCharactersLength(String string) {
-        // for generic k-unique characters, dont store in explicit char and instead
-        // store in a HashSet, and see if that HashSet contains the target chars
+        // sliding window approach
         int longest = 0;
-        int i = 0;
-        while (i < string.length() - 1) {
-            char a = string.charAt(i);
-            char b = string.charAt(i + 1);
-            for (int j = i; j < string.length(); j++) {
-                char c = string.charAt(j);
-                if (c == a || c == b) {
-                    continue;
-                } else {
-                    longest = Math.max(longest, j - i);
-                    i = j;
-                }
+        int left = 0, right = left + 1;
+
+        while (right < string.length()) {
+            char a = string.charAt(left);
+            char b = string.charAt(right);
+            while (a == b && right < string.length()) {
+                b = string.charAt(++right);
+            }
+            char c = b;
+            while (right < string.length() && (c == b || c == a)) {
+                right++;
+                c = string.charAt(right);
+            }
+            longest = Math.max(longest, right - left);
+            while (string.charAt(left) == a) {
+                left++;
             }
         }
         return longest;
