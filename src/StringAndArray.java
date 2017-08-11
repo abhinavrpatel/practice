@@ -731,7 +731,7 @@ public class StringAndArray {
                         longest = seen.size();
                     seen = new HashSet<>();
                     break;
-                } 
+                }
         return longest;
     }
 
