@@ -768,4 +768,29 @@ public class StringAndArray {
         }
         return longest;
     }
+
+
+
+
+
+
+    /**
+     * Given an array of size n, find the majority element. The majority element is the
+     * element that appears more than n/2 times.
+     */
+    public int findMajorityElement(int[] arr) {
+        int result = 0;
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (count == 0) {
+                result = arr[i];
+                count++;
+            } else if (result == arr[i]) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return result;
+    }
 }
