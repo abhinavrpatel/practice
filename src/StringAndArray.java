@@ -859,6 +859,9 @@ public class StringAndArray {
 
 
 
+
+
+
     /**
      * There are N gas stations along a circular route, where the amount of gas at station i is gas[i].
      * You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i
@@ -883,5 +886,35 @@ public class StringAndArray {
         }
 
         return total < 0 ? -1 : start;
+    }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai).
+     * n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two
+     * lines, which together with x-axis forms a container, such that the container contains the most water.
+     */
+    public static int maxArea(int[] nums) {
+        int max = 0;
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
+            max = Math.max(max, (right - left) * Math.min(nums[left], nums[right]));
+            if (nums[right] < nums[left]) {
+                right--;
+            } else {
+                left++;
+            }
+        }
+        return max;
     }
 }
