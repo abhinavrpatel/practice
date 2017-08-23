@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.io.*;
 /**
  * Solutions for a bunch of String and Array type coding problems
  */
@@ -902,7 +902,7 @@ public class StringAndArray {
      * n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two
      * lines, which together with x-axis forms a container, such that the container contains the most water.
      */
-    public static int maxArea(int[] nums) {
+    public static int maxWater(int[] nums) {
         int max = 0;
         int left = 0;
         int right = nums.length - 1;
@@ -916,5 +916,41 @@ public class StringAndArray {
             }
         }
         return max;
+    }
+
+
+
+
+
+
+
+    /**
+     * There are N children standing in a line. Each child is assigned a rating value. You are giving candies
+     * to these children subjected to the following requirements:
+     *     1. Each child must have at least one candy.
+     *     2. Children with a higher rating get more candies than their neighbors.
+     * What is the minimum candies you must give?
+     */
+    public static int candy(int[] ratings) {
+        int[] candies = new int[ratings.length];
+        candies[0] = 1;
+        for (int i = 1; i < candies.length; i++) {
+            if (ratings[i] > ratings[i - 1]) {
+                candies[i] = candies[i - 1] + 1;
+            } else {
+                candies[i] = 1;
+            }
+        }
+
+        int result = candies[candies.length - 1];
+        for (int i = ratings.length - 2; i >= 0; i--) {
+            int current = 1;
+            if (ratings[i] > ratings[i + 1]) {
+                current = candies[i + 1] + 1;
+            }
+            result += Math.max(current, candies[i]);
+            candies[i] = current;
+        }
+        return result;
     }
 }
