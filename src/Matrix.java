@@ -205,4 +205,27 @@ public class Matrix {
 
         return false;
     }
+
+
+
+
+
+
+    /**
+     * You are given an n x n 2D matrix representing an image. Rotate the image in place by 90
+     * degrees (clockwise).
+     */
+    public void rotateMatrix(int[][] image) {
+        // use the relation "matrix[i][j] = matrix[n-1-j][i]" to loop through the matrix.
+        int n = image.length;
+        for (int i = 0; i < n /2; i++) {
+            for (int j = 0; j < Math.ceil(n / 2d); j++) {
+                int temp = image[i][j];
+                image[i][j] = image[n - j - 1][i];
+                image[n - j - 1][i] = image[n - i - 1][n - j - 1];
+                image[n - i - 1][n - j - 1] = image[j][n - i - 1];
+                image[j][n - i - 1] = temp;
+            }
+        }
+    }
 }
