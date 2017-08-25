@@ -140,4 +140,39 @@ public class Matrix {
         }
         return result;
     }
+
+
+
+
+
+
+
+    /**
+     * Write an efficient algorithm that returns whether a value exists in an m x n matrix. This
+     * matrix has properties:
+     *     1) Integers in each row are sorted from left to right.
+     *     2) The first integer of each row is greater than the last integer of the previous row.
+     */
+    public static boolean efficientMatrixSearch(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int start = 0;
+        int end = (m * n) - 1;
+
+        while (start <= end) {
+            int middle = (start + end) / 2;
+            int middleX = middle / n;
+            int middleY =  middle % n;
+
+            if (matrix[middleX][middleY] == target)
+                return true;
+            else if (matrix[middleX][middleY] < target)
+                start = middle + 1;
+            else if (matrix[middleX][middleY] > target)
+                end = middle - 1;
+
+        }
+        return false;
+    }
 }
