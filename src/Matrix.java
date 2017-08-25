@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Solutions for a bunch of Matrix type coding problems
@@ -50,5 +52,45 @@ public class Matrix {
                 matrix[0][i] = 0;
             }
         }
+    }
+
+
+
+
+
+
+    /**
+     * Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix
+     * in spiral order.
+     */
+    public static List<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int left = 0;
+        int right = n - 1;
+        int top = 0;
+        int bottom = m - 1;
+
+        while (result.size() < m * n) {
+            for (int i = left; i <= right; i++) {
+                result.add(matrix[top][i]);
+            }
+            top++;
+
+            for (int i = top; i <= bottom; i++) {
+                result.add(matrix[i][right]);
+            }
+            right--;
+
+            if (bottom < top) break; // no duplicate rows
+
+            for (int i = right; i >= left; right--) {
+                result.add(matrix[bottom][i]);
+            }
+            left++;
+        }
+
+        return result;
     }
 }
