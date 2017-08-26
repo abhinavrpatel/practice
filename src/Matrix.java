@@ -215,7 +215,7 @@ public class Matrix {
      * You are given an n x n 2D matrix representing an image. Rotate the image in place by 90
      * degrees (clockwise).
      */
-    public void rotateMatrix(int[][] image) {
+    public static void rotateMatrix(int[][] image) {
         // use the relation "matrix[i][j] = matrix[n-1-j][i]" to loop through the matrix.
         int n = image.length;
         for (int i = 0; i < n /2; i++) {
@@ -227,5 +227,55 @@ public class Matrix {
                 image[j][n - i - 1] = temp;
             }
         }
+    }
+
+
+
+
+
+
+
+    /**
+     * Determine if a 9 x 9 Sudoku is valid. The Sudoku board could be partially filled, where empty
+     * cells are filled with the character '.'
+     */
+    @SuppressWarnings("all")
+    public static boolean isValidSudoku(char[][] board) {
+        for (int i = 0; i < board[0].length; i++) { // column
+            boolean[] b = new boolean[9];
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] == '.')
+                    continue;
+                if (b[(int) board[i][j] - '1'])
+                    return false;
+                b[(int) board[i][j] - '1'] = true;
+            }
+        }
+
+        for (int i = 0; i < board.length; i++) { // row
+            boolean[] b = new boolean[9];
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == '.')
+                    continue;
+                if (b[(int) board[i][j] - '1'])
+                    return false;
+                b[(int) board[i][j] - '1'] = true;
+            }
+        }
+
+        // block
+        for (int block = 0; block < 9; block++) {
+            boolean[] b = new boolean[9];
+            for (int i = block / 3 * 3; i < block / 3 * 3 + 3; i++) {
+                for (int j = block % 3 * 3; j < block % 3 * 3 + 3; j++) {
+                    if (board[i][j] == '.')
+                        continue;
+                    if (b[(int) board[i][j] - '1'])
+                        return false;
+                    b[(int) board[i][j] - '1'] = true;
+                }
+            }
+        }
+        return true;
     }
 }
