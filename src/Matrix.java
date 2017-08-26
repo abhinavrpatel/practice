@@ -278,4 +278,40 @@ public class Matrix {
         }
         return true;
     }
+
+
+
+
+
+
+
+
+
+    /**
+     * Given a m x n grid filled with non-negative numbers, find a path from top left to bottom
+     * right which minimizes the sum of all numbers along its path.
+     */
+    public static int minPathSum(int[][] grid) {
+        int height = grid.length;
+        int width = grid[0].length;
+
+        int[][] cost = new int[height][width];
+        cost[0][0] = grid[0][0];
+
+        for (int i = 1; i < width; i++)
+            cost[0][i] = cost[0][i - 1] + grid[0][i];
+
+        for (int i = 1; i < height; i++)
+            cost[i][0] = cost[i - 1][0] + grid[0][i];
+
+        for (int i = 1; i < height; i++) {
+            for (int j = 1; j < width; j++) {
+                if (cost[i - 1][j] < cost[i][j - 1])
+                    cost[i][j] = cost[i - 1][j];
+                else
+                    cost[i][j] = cost[i][j - 1];
+            }
+        }
+        return cost[height - 1][width - 1];
+    }
 }
