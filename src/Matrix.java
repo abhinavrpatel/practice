@@ -417,20 +417,65 @@ public class Matrix {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 total++;
-                mergeIsland(grid, i, j);
+                markIsland(grid, i, j);
             }
         }
         return total;
     }
 
-    private static void mergeIsland(char[][] grid, int i, int j) {
+    private static void markIsland(char[][] grid, int i, int j) {
         if(i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] != '1')
             return;
         grid[i][j] = 'x';
 
-        mergeIsland(grid, i-1, j);
-        mergeIsland(grid, i+1, j);
-        mergeIsland(grid, i, j-1);
-        mergeIsland(grid, i, j+1);
+        markIsland(grid, i-1, j);
+        markIsland(grid, i+1, j);
+        markIsland(grid, i, j-1);
+        markIsland(grid, i, j+1);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Given n nodes labeled from 0 to n - 1 and a list of undirected edges (each edge is a pair of
+     * nodes), write a function to find the number of connected components in an undirected graph.
+     */
+    public static int numConnectedComponents(int n, int[][] edges) {
+        // disjoint sets
+        int[] root = new int[n];
+
+        for (int i = 0; i < n; i++)
+            root[i] = i;
+
+        for (int i = 0; i < edges.length; i++) {
+            int x = edges[i][0];
+            int y = edges[i][1];
+
+            int xRoot = getRoot(root, x);
+            int yRoot = getRoot(root, y);
+
+            if (xRoot != yRoot) {
+                root[xRoot] = yRoot;
+                n--;
+            }
+        }
+
+        return n;
+    }
+
+    private static int getRoot(int[] set, int i) {
+        while (set[i] != i) {
+            set[i] = set[set[i] % set.length];
+            i = set[i];
+        }
+        return i;
     }
 }
