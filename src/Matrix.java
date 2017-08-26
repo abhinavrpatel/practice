@@ -331,19 +331,106 @@ public class Matrix {
      * corner of the grid. How many possible unique paths are there?
      */
     public static int numUniquePaths(int m, int n) {
-        int[][] cost = new int[m][n];
+        int[][] paths = new int[m][n];
         for (int i = 0; i < m; i++)
-            cost[i][0] = 1;
+            paths[i][0] = 1;
 
         for (int i = 1; i < n; i++)
-            cost[0][i] = 1;
+            paths[0][i] = 1;
 
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
-                cost[i][j] = cost[i - 1][j] + cost[i][j - 1];
+                paths[i][j] = paths[i - 1][j] + paths[i][j - 1];
             }
         }
 
-        return cost[m - 1][n - 1];
+        return paths[m - 1][n - 1];
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Follow up for numUniquePaths. Now consider if some obstacles are added to the grids. How
+     * many unique paths would there be? An obstacle and empty space is marked as 1 and 0
+     * respectively in the grid.
+     */
+    public static int numUniquePathsObstacles(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        if (grid[0][0] == 1 || grid[m - 1][n - 1] == 1)
+            return 0;
+
+        int[][] paths = new int[m][n];
+        for (int i = 1; i < n; i++) {
+            if (grid[i][0] == 1)
+                paths[i][0] = 0;
+            else
+                paths[i][0] = paths[i - 1][0];
+        }
+
+
+        for (int i = 1; i < m; i++) {
+            if (grid[0][i] == 1)
+                paths[0][i] = 0;
+            else
+                paths[0][i] = paths[0][i - 1];
+        }
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (grid[i][j] == 0)
+                    paths[i][j] = 0;
+                else
+                    paths[i][j] = paths[i - 1][j] + paths[i][j - 1];
+            }
+        }
+
+        return paths[m - 1][n - 1];
+    }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Given a 2-d grid map of '1's (land) and '0's (water), count the number of islands. An
+     * island is surrounded by water and is formed by connecting adjacent lands horizontally
+     * or vertically. You may assume all four edges of the grid are all surrounded by water.
+     */
+    public static int numIslands(char[][] grid) {
+        // merge adjacent lands recursively
+        int total = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                total++;
+                mergeIsland(grid, i, j);
+            }
+        }
+        return total;
+    }
+
+    private static void mergeIsland(char[][] grid, int i, int j) {
+        if(i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] != '1')
+            return;
+        grid[i][j] = 'x';
+
+        mergeIsland(grid, i-1, j);
+        mergeIsland(grid, i+1, j);
+        mergeIsland(grid, i, j-1);
+        mergeIsland(grid, i, j+1);
     }
 }
