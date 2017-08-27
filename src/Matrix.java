@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Solutions for a bunch of Matrix type coding problems
@@ -494,6 +495,7 @@ public class Matrix {
      * is captured by flipping all 'O's into 'X's in that surrounded region.
      */
     public static void captureRegions(char[][] board) {
+        // DFS approach, causes StackOverflowError for large boards. To avoid that, can also do BFS approach
         for (int i = 0; i < board.length; i++) {
             if (board[i][0] == 'O')
                 mergeRegion(board, i, 0);
@@ -527,5 +529,55 @@ public class Matrix {
         mergeRegion(board, i - 1, j);
         mergeRegion(board, i, j + 1);
         mergeRegion(board, i, j - 1);
+    }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing all ones
+     * and return its area.
+     */
+    public static int maxRectangle(char[][] matrix) {
+        // reduce to max area in histogram problem
+        int[][] heights = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix[0].length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (matrix[i][j] == '0')
+                    heights[i][j] = 0;
+                else
+                    heights[i][j] = i == 0 ? 1 : 1 + heights[i - 1][j];
+            }
+        }
+
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < matrix[0].length; i++) {
+            int area = maxAreaInHistogram(heights[i]);
+            max = area > max ? area : max;
+        }
+        return max;
+    }
+
+    public static int maxAreaInHistogram(int[] height) {
+        Stack<Integer> stack = new Stack<>();
+
+        int i = 0, max = 0;
+        while (i < height.length) {
+            if (stack.isEmpty() || height[stack.peek()] <= height[i]) {
+                stack.push(i++);
+            } else {
+                int t = stack.pop();
+                max = Math.max(max, height[t]
+                        * (stack.isEmpty() ? i : i - stack.peek() - 1));
+            }
+        }
+
+        return max;
     }
 }
