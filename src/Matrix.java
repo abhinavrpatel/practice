@@ -580,4 +580,41 @@ public class Matrix {
 
         return max;
     }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Given a 2D binary matrix filled with 0's and 1's, find the largest square containing all 1's
+     * and return its area.
+     */
+    public static int maximalSquare(char[][] matrix) {
+        int[][] squares = new int[matrix.length][matrix[0].length]; //
+
+        for (int i = 0; i < matrix.length; i++)
+            squares[i][0] = Character.getNumericValue(matrix[i][0]);
+        for (int i = 0; i < matrix[0].length; i++)
+            squares[0][i] = Character.getNumericValue(matrix[0][i]);
+
+        for (int i = 1; i < matrix.length; i++)
+            for (int j = 1; j < matrix[0].length; j++)
+                if (matrix[i][j] == '0')
+                    squares[i][j] = 0;
+                else
+                    squares[i][j] = 1 + Math.min(squares[i - 1][j - 1], Math.min(squares[i - 1][j], squares[i][j - 1]));
+
+        int max = 0;
+        for (int[] row : squares)
+            for (int i : row)
+                if (i > max)
+                    max = i;
+
+        return max * max;
+    }
 }
