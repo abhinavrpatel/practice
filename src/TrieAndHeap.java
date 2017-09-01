@@ -1,12 +1,9 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Solutions for a bunch of Trie and Heap type coding problems
  */
 public class TrieAndHeap {
-
-    // TODO Ternary Search Trie
 
     /**
      * Implement a trie with insert, contains, and startsWith methods.
@@ -80,5 +77,29 @@ public class TrieAndHeap {
             }
             return current;
         }
+    }
+
+
+
+
+
+
+
+
+
+    /**
+     * Merge K sorted arrays
+     */
+    public static Integer[] mergeKSortedArrays(List<Integer[]> arrays) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        for (Integer[] array : arrays)
+            for (Integer i : array)
+                heap.add(i);
+
+        Integer[] result = new Integer[heap.size()];
+        for (int i = 0; i < result.length; i++)
+            result[i] = heap.poll();
+
+        return result;
     }
 }
