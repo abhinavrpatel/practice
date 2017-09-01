@@ -27,32 +27,29 @@ public class Matrix {
             break;
         }
 
-        for (int i = 1; i < matrix.length; i++) {
-            for (int j = 1; j < matrix[i].length; j++) {
+        for (int i = 1; i < matrix.length; i++)
+            for (int j = 1; j < matrix[i].length; j++)
                 if (matrix[i][j] == 0) {
                     matrix[i][0] = 0;
                     matrix[0][j] = 0;
                 }
-            }
-        }
 
-        for (int i = 1; i < matrix.length; i++) {
-            for (int j = 1; j < matrix[i].length; j++) {
+
+        for (int i = 1; i < matrix.length; i++)
+            for (int j = 1; j < matrix[i].length; j++)
                 if (matrix[i][0] == 0 || matrix[0][j] == 0)
                     matrix[i][j] = 0;
-            }
-        }
 
-        if (firstColZero) {
+
+        if (firstColZero)
             for (int i = 0; i < matrix.length; i++)
                 matrix[i][0] = 0;
-        }
 
-        if (firstRowZero) {
-            for (int i = 0; i < matrix[0].length; i++) {
+
+        if (firstRowZero)
+            for (int i = 0; i < matrix[0].length; i++)
                 matrix[0][i] = 0;
-            }
-        }
+
     }
 
 
@@ -74,21 +71,18 @@ public class Matrix {
         int bottom = m - 1;
 
         while (result.size() < m * n) {
-            for (int i = left; i <= right; i++) {
+            for (int i = left; i <= right; i++)
                 result.add(matrix[top][i]);
-            }
             top++;
 
-            for (int i = top; i <= bottom; i++) {
+            for (int i = top; i <= bottom; i++)
                 result.add(matrix[i][right]);
-            }
             right--;
 
             if (bottom < top) break; // no duplicate rows
 
-            for (int i = right; i >= left; right--) {
+            for (int i = right; i >= left; right--)
                 result.add(matrix[bottom][i]);
-            }
             left++;
         }
 
@@ -195,14 +189,14 @@ public class Matrix {
         int i = m;
         int j = 0;
 
-        while (i >= 0 && j <= n) {
+        while (i >= 0 && j <= n)
             if (target < matrix[i][j])
                 i--;
             else if (target > matrix[i][j])
                 j++;
             else
                 return true;
-        }
+
 
         return false;
     }
@@ -219,7 +213,7 @@ public class Matrix {
     public static void rotateMatrix(int[][] image) {
         // use the relation "matrix[i][j] = matrix[n-1-j][i]" to loop through the matrix.
         int n = image.length;
-        for (int i = 0; i < n /2; i++) {
+        for (int i = 0; i < n /2; i++)
             for (int j = 0; j < Math.ceil(n / 2d); j++) {
                 int temp = image[i][j];
                 image[i][j] = image[n - j - 1][i];
@@ -227,7 +221,6 @@ public class Matrix {
                 image[n - i - 1][n - j - 1] = image[j][n - i - 1];
                 image[j][n - i - 1] = temp;
             }
-        }
     }
 
 
@@ -305,14 +298,13 @@ public class Matrix {
         for (int i = 1; i < height; i++)
             cost[i][0] = cost[i - 1][0] + grid[0][i];
 
-        for (int i = 1; i < height; i++) {
-            for (int j = 1; j < width; j++) {
+        for (int i = 1; i < height; i++)
+            for (int j = 1; j < width; j++)
                 if (cost[i - 1][j] < cost[i][j - 1])
                     cost[i][j] = cost[i - 1][j];
                 else
                     cost[i][j] = cost[i][j - 1];
-            }
-        }
+
         return cost[height - 1][width - 1];
     }
 
@@ -339,11 +331,9 @@ public class Matrix {
         for (int i = 1; i < n; i++)
             paths[0][i] = 1;
 
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
+        for (int i = 1; i < m; i++)
+            for (int j = 1; j < n; j++)
                 paths[i][j] = paths[i - 1][j] + paths[i][j - 1];
-            }
-        }
 
         return paths[m - 1][n - 1];
     }
@@ -371,29 +361,25 @@ public class Matrix {
             return 0;
 
         int[][] paths = new int[m][n];
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++)
             if (grid[i][0] == 1)
                 paths[i][0] = 0;
             else
                 paths[i][0] = paths[i - 1][0];
-        }
 
 
-        for (int i = 1; i < m; i++) {
+        for (int i = 1; i < m; i++)
             if (grid[0][i] == 1)
                 paths[0][i] = 0;
             else
                 paths[0][i] = paths[0][i - 1];
-        }
 
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
+        for (int i = 1; i < m; i++)
+            for (int j = 1; j < n; j++)
                 if (grid[i][j] == 0)
                     paths[i][j] = 0;
                 else
                     paths[i][j] = paths[i - 1][j] + paths[i][j - 1];
-            }
-        }
 
         return paths[m - 1][n - 1];
     }
@@ -415,12 +401,11 @@ public class Matrix {
     public static int numIslands(char[][] grid) {
         // merge adjacent lands recursively
         int total = 0;
-        for (int i = 0; i < grid.length; i++) {
+        for (int i = 0; i < grid.length; i++)
             for (int j = 0; j < grid[0].length; j++) {
                 total++;
                 markIsland(grid, i, j);
             }
-        }
         return total;
     }
 
@@ -510,14 +495,13 @@ public class Matrix {
                 mergeRegion(board, board.length - 1, i);
         }
 
-        for (int i = 0; i < board.length; i++) {
+        for (int i = 0; i < board.length; i++)
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] == 'O')
                     board[i][j] = 'X';
                 if (board[i][j] == 'M')
                     board[i][j] = 'O';
             }
-        }
     }
 
     private static void mergeRegion(char[][] board, int i, int j) {
@@ -547,14 +531,13 @@ public class Matrix {
     public static int maxRectangle(char[][] matrix) {
         // reduce to max area in histogram problem
         int[][] heights = new int[matrix.length][matrix[0].length];
-        for (int i = 0; i < matrix[0].length; i++) {
+        for (int i = 0; i < matrix[0].length; i++)
             for (int j = 0; j < matrix.length; j++) {
                 if (matrix[i][j] == '0')
                     heights[i][j] = 0;
                 else
                     heights[i][j] = i == 0 ? 1 : 1 + heights[i - 1][j];
             }
-        }
 
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < matrix[0].length; i++) {
@@ -568,15 +551,13 @@ public class Matrix {
         Stack<Integer> stack = new Stack<>();
 
         int i = 0, max = 0;
-        while (i < height.length) {
-            if (stack.isEmpty() || height[stack.peek()] <= height[i]) {
+        while (i < height.length)
+            if (stack.isEmpty() || height[stack.peek()] <= height[i])
                 stack.push(i++);
-            } else {
+            else {
                 int t = stack.pop();
-                max = Math.max(max, height[t]
-                        * (stack.isEmpty() ? i : i - stack.peek() - 1));
+                max = Math.max(max, height[t] * (stack.isEmpty() ? i : i - stack.peek() - 1));
             }
-        }
 
         return max;
     }
@@ -617,4 +598,27 @@ public class Matrix {
 
         return max * max;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Given a 2D board and a word, find if the word exists in the grid. The word can be constructed
+     * from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or
+     * vertically neighboring. The same letter cell may not be used more than once.
+     */
+    public static boolean wordSearch(char[][] board, String word) {
+        return false;
+    }
+
+
+    //private static boolean wordSearchDFS(char[][] board)
 }
