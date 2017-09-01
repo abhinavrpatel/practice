@@ -94,12 +94,55 @@ public class TrieAndHeap {
         PriorityQueue<Integer> heap = new PriorityQueue<>();
         for (Integer[] array : arrays)
             for (Integer i : array)
-                heap.add(i);
+                heap.offer(i);
 
         Integer[] result = new Integer[heap.size()];
         for (int i = 0; i < result.length; i++)
             result[i] = heap.poll();
 
         return result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    private static class Interval {
+        int start, end;
+    }
+
+
+    /**
+     * Given an array of meeting time intervals consisting of start and end times find the minimum
+     * number of conference rooms required.
+     */
+    public static int minMeetingRooms(Interval[] intervals) {
+        Arrays.sort(intervals, new Comparator<Interval>() {
+            @Override
+            public int compare(Interval a, Interval b) {
+                return a.start - b.start;
+            }
+        });
+
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        int rooms = 1;
+        heap.offer(intervals[0].end);
+
+        for (Interval i : intervals) {
+            if (i.start < heap.peek())
+                rooms++;
+            else
+                heap.poll();
+            heap.offer(i.end);
+        }
+
+        return rooms;
     }
 }
